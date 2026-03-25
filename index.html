@@ -10,6 +10,9 @@
 ```
 <!-- Animation -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<!-- Typing effect -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 ```
 
 </head>
@@ -31,7 +34,7 @@
 <!-- HERO -->
 <section class="hero">
     <h1>Hi, I'm Thao</h1>
-    <p>E-commerce Operations | Digital Marketing | Business Analysis</p>
+    <p><span id="typing"></span></p>
 </section>
 
 <!-- ABOUT -->
@@ -58,26 +61,30 @@
         <div class="skill-card">E-commerce</div>
         <div class="skill-card">Content Marketing</div>
         <div class="skill-card">Market Research</div>
-        <div class="skill-card">Canva & Photoshop</div>
+        <div class="skill-card">Canva</div>
+        <div class="skill-card">Photoshop</div>
     </div>
 </section>
 
 <!-- EXPERIENCE -->
 <section id="experience" data-aos="fade-up">
     <h2>Experience</h2>
-    <div class="project-card">
-        <h3>E-commerce Business Competition – E-Battlefield 2025</h3>
-        <p>Optimized product listing, SEO keywords, Amazon Ads campaign and achieved 42 orders in 21 days.</p>
-    </div>
 
-    <div class="project-card">
-        <h3>KOL/KOC Booking – Savor Vietnam</h3>
-        <p>Managed KOL/KOC campaigns and helped increase brand awareness by 30–40%.</p>
-    </div>
+    <div class="timeline">
+        <div class="timeline-item">
+            <h3>E-commerce Business Competition – E-Battlefield 2025</h3>
+            <p>Optimized product listing, SEO keywords, Amazon Ads campaign and achieved 42 orders in 21 days.</p>
+        </div>
 
-    <div class="project-card">
-        <h3>Product Management Intern – Synnex FPT</h3>
-        <p>Conducted market research, managed product information and supported business reports.</p>
+        <div class="timeline-item">
+            <h3>KOL/KOC Booking – Savor Vietnam</h3>
+            <p>Managed KOL/KOC campaigns and helped increase brand awareness by 30–40%.</p>
+        </div>
+
+        <div class="timeline-item">
+            <h3>Product Management Intern – Synnex FPT</h3>
+            <p>Conducted market research, managed product information and supported business reports.</p>
+        </div>
     </div>
 </section>
 
@@ -107,6 +114,13 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init();
+
+    var typed = new Typed("#typing", {
+        strings: ["E-commerce Operations", "Digital Marketing", "Business Analysis"],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true
+    });
 </script>
 ```
 
