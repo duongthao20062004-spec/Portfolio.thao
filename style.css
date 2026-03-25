@@ -2,6 +2,8 @@ body {
 margin: 0;
 font-family: Arial, sans-serif;
 padding-top: 70px;
+background: #0f172a;
+color: white;
 }
 
 html {
@@ -14,7 +16,7 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 padding: 15px 50px;
-background: #0b0b0b;
+background: #020617;
 color: white;
 position: fixed;
 width: 100%;
@@ -36,14 +38,13 @@ text-decoration: none;
 }
 
 .navbar a:hover {
-color: #00adb5;
+color: #38bdf8;
 }
 
 /* Hero */
 .hero {
 height: 100vh;
-background: linear-gradient(to right, #141e30, #243b55);
-color: white;
+background: linear-gradient(to right, #0f172a, #1e293b);
 display: flex;
 justify-content: center;
 align-items: center;
@@ -86,13 +87,27 @@ border-radius: 10px;
 display: flex;
 justify-content: center;
 gap: 20px;
+flex-wrap: wrap;
 }
 
 .skill-card {
-background: #eeeeee;
+background: #1e293b;
 padding: 20px;
 border-radius: 10px;
 width: 150px;
+}
+
+/* Timeline */
+.timeline {
+width: 60%;
+margin: auto;
+}
+
+.timeline-item {
+background: #1e293b;
+padding: 20px;
+border-radius: 10px;
+margin: 20px 0;
 }
 
 /* Projects */
@@ -100,14 +115,14 @@ width: 150px;
 display: flex;
 justify-content: center;
 gap: 30px;
+flex-wrap: wrap;
 }
 
 .project-card {
 width: 250px;
 padding: 20px;
-background: #eeeeee;
+background: #1e293b;
 border-radius: 10px;
-margin: 20px auto;
 transition: 0.3s;
 }
 
