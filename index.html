@@ -1,128 +1,923 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thao Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dương Thị Thảo — E-Commerce Operations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-```
-<!-- Animation -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    :root {
+      --bg: #0c0c0f;
+      --surface: #13131a;
+      --border: rgba(255,255,255,0.07);
+      --accent: #c8a96e;
+      --accent2: #e8d5a3;
+      --text: #e8e6e1;
+      --muted: #7a7870;
+      --tag-bg: rgba(200,169,110,0.1);
+    }
 
-<!-- Typing effect -->
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-```
+    html { scroll-behavior: smooth; }
 
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(12,12,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-left {}
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block; width: 20px; height: 1px;
+      background: var(--accent);
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      padding: 0.75rem 1.8rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #0c0c0f;
+      font-weight: 500;
+    }
+    .btn-primary:hover { background: var(--accent2); }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-photo-frame {
+      position: relative;
+      width: 320px; height: 380px;
+    }
+    .hero-photo-frame::before {
+      content: '';
+      position: absolute;
+      top: 16px; left: 16px; right: -16px; bottom: -16px;
+      border: 1px solid var(--accent);
+      border-radius: 2px;
+      opacity: 0.4;
+    }
+    .hero-photo-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 2px;
+      filter: grayscale(20%) contrast(1.05);
+      display: block;
+    }
+    .hero-photo-placeholder {
+      width: 100%; height: 100%;
+      background: var(--surface);
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: var(--muted);
+    }
+    .hero-photo-placeholder svg { opacity: 0.3; }
+    .hero-photo-placeholder span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 3rem; left: 4rem;
+      display: flex; gap: 3rem;
+    }
+    .stat-item { }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── DECORATIVE LINE ── */
+    .section-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 auto;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      line-height: 1.2;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      line-height: 1.9;
+    }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+
+    .about-details {}
+    .detail-block {
+      border-left: 1px solid var(--border);
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .detail-block-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .detail-block-value {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .detail-block-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 2.5rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+    .exp-item:hover .exp-title { color: var(--accent); }
+    .exp-meta {}
+    .exp-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .exp-company {
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-top: 0.4rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .exp-content {}
+    .exp-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      transition: color 0.3s;
+    }
+    .exp-bullets {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .exp-bullets li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.7;
+    }
+    .exp-bullets li::before {
+      content: '—';
+      position: absolute; left: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+    }
+    .exp-highlight {
+      display: inline-flex; gap: 0.4rem; align-items: center;
+      background: var(--tag-bg);
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 2px;
+      padding: 0.15rem 0.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-top: 1rem;
+      margin-right: 0.4rem;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.8rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .skill-card:hover {
+      border-color: rgba(200,169,110,0.3);
+      transform: translateY(-3px);
+    }
+    .skill-card-icon {
+      width: 36px; height: 36px;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+    .skill-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .skill-card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin-top: 1rem;
+    }
+    .skill-tag {
+      background: var(--tag-bg);
+      border: 1px solid rgba(200,169,110,0.15);
+      border-radius: 2px;
+      padding: 0.2rem 0.6rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FEATURED PROJECT ── */
+    .project-feature {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      transition: border-color 0.3s;
+    }
+    .project-feature:hover { border-color: rgba(200,169,110,0.25); }
+    .project-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .project-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .pstat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem;
+    }
+    .pstat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .pstat-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-block {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 2.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-block:first-of-type { border-top: 1px solid var(--border); }
+    .edu-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.3rem;
+    }
+    .edu-school { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.4rem; }
+    .edu-gpa { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact {
+      text-align: center;
+      padding: 6rem 4rem 8rem;
+    }
+    #contact h2 { margin-bottom: 1rem; }
+    #contact .lead {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 440px;
+      margin: 0 auto 2.5rem;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.3s;
+      font-family: 'DM Mono', monospace;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-stats { bottom: 2rem; left: 1.5rem; gap: 2rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .project-feature { grid-template-columns: 1fr; gap: 2rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      #contact { padding: 4rem 1.5rem; }
+    }
+  </style>
 </head>
 <body>
 
-```
-<!-- NAVBAR -->
-<nav class="navbar">
-    <h2>Thao</h2>
-    <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">D.T. Thảo</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#project">Project</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-    <h1>Hi, I'm Thao</h1>
-    <p><span id="typing"></span></p>
-</section>
+<div id="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-tag">E-Commerce Operations Intern</div>
+      <h1>Dương<br/><em>Thị Thảo</em></h1>
+      <p class="hero-desc">
+        A passionate e-commerce enthusiast with hands-on experience in store operations, product listing optimization, advertising campaigns, and KOL/KOC management. Currently pursuing a degree in International Business at Foreign Trade University.
+      </p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="#experience" class="btn btn-outline">View Experience</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-photo-frame">
+        <!-- Replace src with your actual photo URL -->
+        <div class="hero-photo-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <span>Add your photo here<br/>replace with &lt;img&gt; tag</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">3.55</div>
+      <div class="stat-label">GPA / 4.0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">435%</div>
+      <div class="stat-label">ROAS Improvement</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">200+</div>
+      <div class="stat-label">KOL/KOC Managed</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-line"></div>
 
 <!-- ABOUT -->
-<section id="about" data-aos="fade-up">
-    <h2>About Me</h2>
-    <div class="about-container">
-        <div class="about-text">
-            <p>
-                I am a Business Administration student at Foreign Trade University with a strong interest in E-commerce and Digital Marketing.
-                I have experience in content marketing, marketplace operations, KOL/KOC booking and market research.
-                My goal is to become an E-commerce Operations Specialist in the future.
-            </p>
-        </div>
-        <div class="about-image">
-            <img src="https://via.placeholder.com/250" alt="profile">
-        </div>
+<section id="about">
+  <div class="section-label">01 — About</div>
+  <h2>Who I am</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm a 4th-year student at <strong>Foreign Trade University</strong>, majoring in International Business Administration. My passion lies in the fast-growing world of e-commerce — from running Amazon ad campaigns to managing KOL partnerships.
+      </p>
+      <p>
+        Through competitions and internships, I've developed a solid foundation in <strong>product listing optimization</strong>, <strong>performance marketing</strong>, and <strong>data-driven decision making</strong>. I believe that great e-commerce operations are built on deep market insight and meticulous execution.
+      </p>
+      <p>
+        Within the next 3 years, my goal is to become a professional e-commerce specialist capable of building and executing effective operations strategies that drive sustainable brand growth.
+      </p>
     </div>
+    <div class="about-details reveal">
+      <div class="detail-block">
+        <div class="detail-block-label">Location</div>
+        <div class="detail-block-value">185 Chùa Láng, Đống Đa</div>
+        <div class="detail-block-sub">Hanoi, Vietnam</div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-block-label">Education</div>
+        <div class="detail-block-value">Foreign Trade University</div>
+        <div class="detail-block-sub">B.A. International Business · 2022–2026</div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-block-label">GPA</div>
+        <div class="detail-block-value">3.55 / 4.0</div>
+        <div class="detail-block-sub">Academic Excellence Scholarship</div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-block-label">Languages</div>
+        <div class="detail-block-value">Vietnamese (Native)</div>
+        <div class="detail-block-sub">English (Professional)</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills" data-aos="fade-up">
-    <h2>Skills</h2>
-    <div class="skills-container">
-        <div class="skill-card">E-commerce</div>
-        <div class="skill-card">Content Marketing</div>
-        <div class="skill-card">Market Research</div>
-        <div class="skill-card">Canva</div>
-        <div class="skill-card">Photoshop</div>
-    </div>
-</section>
+<div class="section-line"></div>
 
 <!-- EXPERIENCE -->
-<section id="experience" data-aos="fade-up">
-    <h2>Experience</h2>
+<section id="experience">
+  <div class="section-label">02 — Experience</div>
+  <h2>Where I've worked</h2>
+  <div class="exp-list">
 
-    <div class="timeline">
-        <div class="timeline-item">
-            <h3>E-commerce Business Competition – E-Battlefield 2025</h3>
-            <p>Optimized product listing, SEO keywords, Amazon Ads campaign and achieved 42 orders in 21 days.</p>
+    <!-- E-Battlefield -->
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Sep 2025<br/>Nov 2025</div>
+        <div class="exp-company">E-BattleField 2025</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">E-Commerce Operations — Amazon Global</div>
+        <ul class="exp-bullets">
+          <li>Analyzed 10 competitors in a $17.1M/month category; identified a vintage bulbs niche with $700K–850K/month potential.</li>
+          <li>Optimized product listings with SEO keyword research, 7 product images, A+ Content, bullet points — achieving CTR 0.15% and conversion rate 10.06%.</li>
+          <li>Managed 5 Amazon ad campaigns (Sponsored Products, Display, Brand) with $10–30/day budget; eliminated 50+ negative keywords; improved ROAS by 435% (0.17 → 0.91).</li>
+          <li>Launched promotions (8% coupon, Vine 30 units) and A/B testing — achieved coupon ROI 11.5x and +40% orders.</li>
+          <li>Managed inventory for 5 restocking rounds, calculated COGS & FBA fees, maintained 42% sell-through rate.</li>
+        </ul>
+        <div style="margin-top:1rem">
+          <span class="exp-highlight">$437 revenue · 21 days</span>
+          <span class="exp-highlight">42 orders</span>
+          <span class="exp-highlight">🏆 Runner-up · E-BattleField 2025</span>
         </div>
-
-        <div class="timeline-item">
-            <h3>KOL/KOC Booking – Savor Vietnam</h3>
-            <p>Managed KOL/KOC campaigns and helped increase brand awareness by 30–40%.</p>
-        </div>
-
-        <div class="timeline-item">
-            <h3>Product Management Intern – Synnex FPT</h3>
-            <p>Conducted market research, managed product information and supported business reports.</p>
-        </div>
+      </div>
     </div>
+
+    <!-- Synnex FPT -->
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Sep 2024<br/>Dec 2025</div>
+        <div class="exp-company">Synnex FPT</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">Product Management Intern</div>
+        <ul class="exp-bullets">
+          <li>Supported building and updating product information, pricing policies, promotions, and new product development plans.</li>
+          <li>Participated in market surveys on sales channels, consumer habits, and competitor intelligence.</li>
+          <li>Assisted in weekly/monthly business reporting (sales, inventory, market feedback).</li>
+          <li>Coordinated with Procurement, Delivery, and Accounting teams to track orders and receivables.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Savor -->
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-period">May 2024<br/>Oct 2025</div>
+        <div class="exp-company">Savor Việt Nam</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-title">KOL/KOC Booking Collaborator</div>
+        <ul class="exp-bullets">
+          <li>Sourced and proposed 50+ KOL/KOC per month, booking an average of 50 videos/month aligned to brand direction and budget.</li>
+          <li>Negotiated contracts and ensured 100% of campaigns launched on schedule.</li>
+          <li>Collaborated with Content–Design–Media teams to boost brand awareness by 30–40%.</li>
+          <li>Tracked campaign performance: avg. 150,000 views, 5,000 interactions, and 10–15% incremental sales per campaign.</li>
+          <li>Maintained a database of 200+ KOL/KOC for long-term campaign sustainability.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects" data-aos="fade-up">
-    <h2>Projects</h2>
-    <div class="projects-container">
-        <div class="project-card">
-            <h3>E-commerce Project</h3>
-            <p>Amazon product listing optimization and advertising campaign.</p>
-        </div>
+<div class="section-line"></div>
 
-        <div class="project-card">
-            <h3>Portfolio Website</h3>
-            <p>Personal portfolio website using HTML and CSS.</p>
-        </div>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">03 — Skills</div>
+  <h2>What I bring</h2>
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <svg class="skill-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 3h18v18H3z" stroke="none"/><rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor"/><path d="M16 3l-4 4-4-4"/>
+      </svg>
+      <div class="skill-card-title">E-Commerce Operations</div>
+      <div class="skill-card-desc">Store management, product listing optimization, order fulfillment, and promotion planning on major platforms.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Amazon Seller Central</span>
+        <span class="skill-tag">SEO Keywords</span>
+        <span class="skill-tag">A+ Content</span>
+        <span class="skill-tag">FBA Logistics</span>
+      </div>
     </div>
+
+    <div class="skill-card reveal">
+      <svg class="skill-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      <div class="skill-card-title">Performance Marketing</div>
+      <div class="skill-card-desc">Running and optimizing ad campaigns with data-driven bidding strategies to maximize ROAS and conversions.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Amazon Ads</span>
+        <span class="skill-tag">Sponsored Products</span>
+        <span class="skill-tag">ROAS Optimization</span>
+        <span class="skill-tag">A/B Testing</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <svg class="skill-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/>
+      </svg>
+      <div class="skill-card-title">Influencer Marketing</div>
+      <div class="skill-card-desc">Sourcing, negotiating, and managing KOL/KOC partnerships at scale to drive brand awareness and sales.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">KOL/KOC Management</span>
+        <span class="skill-tag">Campaign Tracking</span>
+        <span class="skill-tag">Contract Negotiation</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <svg class="skill-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+      <div class="skill-card-title">Content & Copywriting</div>
+      <div class="skill-card-desc">Creating and editing multi-platform content for Facebook, TikTok — driving engagement and brand storytelling.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Facebook</span>
+        <span class="skill-tag">TikTok</span>
+        <span class="skill-tag">Social Media KPIs</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <svg class="skill-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+      </svg>
+      <div class="skill-card-title">Market Research & Analysis</div>
+      <div class="skill-card-desc">Researching industry trends, analyzing competitors, and understanding consumer behavior to inform strategy.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Competitor Analysis</span>
+        <span class="skill-tag">Consumer Insights</span>
+        <span class="skill-tag">Category Research</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <svg class="skill-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      <div class="skill-card-title">Design & Creative Tools</div>
+      <div class="skill-card-desc">Producing visual content and video marketing assets to support campaigns and product presentation.</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Canva</span>
+        <span class="skill-tag">Photoshop</span>
+        <span class="skill-tag">CapCut</span>
+        <span class="skill-tag">AI Tools</span>
+      </div>
+    </div>
+
+  </div>
 </section>
+
+<div class="section-line"></div>
+
+<!-- PROJECT -->
+<section id="project">
+  <div class="section-label">04 — Featured Project</div>
+  <h2>E-BattleField 2025</h2>
+  <div class="project-feature reveal">
+    <div>
+      <div class="project-badge">🏆 Runner-up · Global E-Commerce Competition</div>
+      <div class="project-title">Amazon Global — Vintage LED Bulbs</div>
+      <p class="project-desc">
+        Competed in Vietnam's largest Global E-Commerce competition organized by ECC-NEU. Operated a real Amazon store from product selection to advertising, managing the full e-commerce lifecycle in a $17.1M/month category. Identified the vintage bulbs niche with $700K–850K/month potential and built a full operations strategy from scratch.
+      </p>
+      <p class="project-desc">
+        Ran 5 ad campaign types, optimized bidding, managed inventory across 5 restocking rounds, and deployed promotional programs — achieving results that earned Runner-up at E-BattleField 2025.
+      </p>
+      <span class="skill-tag" style="margin-right:0.4rem">Amazon Seller Central</span>
+      <span class="skill-tag" style="margin-right:0.4rem">Sponsored Ads</span>
+      <span class="skill-tag" style="margin-right:0.4rem">SEO</span>
+      <span class="skill-tag" style="margin-right:0.4rem">Inventory Planning</span>
+      <span class="skill-tag">A/B Testing</span>
+    </div>
+    <div class="project-stats-grid">
+      <div class="pstat">
+        <div class="pstat-val">$437</div>
+        <div class="pstat-label">Revenue in 21 days</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-val">42</div>
+        <div class="pstat-label">Orders fulfilled</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-val">435%</div>
+        <div class="pstat-label">ROAS improvement</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-val">10.06%</div>
+        <div class="pstat-label">Conversion rate</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-val">11.5x</div>
+        <div class="pstat-label">Coupon ROI</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-val">209K</div>
+        <div class="pstat-label">Ad impressions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-line"></div>
+
+<!-- EDUCATION & ACHIEVEMENTS -->
+<section id="education">
+  <div class="section-label">05 — Education & Achievements</div>
+  <h2>Academic background</h2>
+
+  <div class="edu-block reveal">
+    <div class="edu-period">2022 — 2026</div>
+    <div>
+      <div class="edu-degree">Bachelor of International Business Administration</div>
+      <div class="edu-school">Foreign Trade University (FTU) · Hanoi</div>
+      <div class="edu-gpa">GPA: 3.55 / 4.0 · Academic Excellence Scholarship — Semester 1/2024</div>
+    </div>
+  </div>
+
+  <div class="edu-block reveal">
+    <div class="edu-period">2025</div>
+    <div>
+      <div class="edu-degree">🏆 Runner-up — E-BattleField 2025</div>
+      <div class="edu-school">Vietnam's First & Largest Global E-Commerce Competition · ECC-NEU</div>
+      <div class="edu-gpa">Competed in real Amazon marketplace operations against university teams nationwide.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-line"></div>
 
 <!-- CONTACT -->
-<section id="contact" data-aos="fade-up">
-    <h2>Contact</h2>
-    <p>Email: duongthao20062004@gmail.com</p>
-    <p>Phone: 0981 958 875</p>
+<section id="contact">
+  <div class="section-label" style="text-align:center; margin-bottom:0.5rem">06 — Contact</div>
+  <h2>Let's connect</h2>
+  <p class="lead">I'm open to internship opportunities, collaborations, and conversations about e-commerce. Feel free to reach out!</p>
+  <div class="contact-links">
+    <a href="mailto:duongthao20062004@gmail.com" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      duongthao20062004@gmail.com
+    </a>
+    <a href="tel:0981958875" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.0 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z"/></svg>
+      0981 958 875
+    </a>
+    <a href="https://www.facebook.com/thao000246" target="_blank" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      Facebook
+    </a>
+  </div>
 </section>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Dương Thị Thảo</span>
+  <span>E-Commerce Operations · Hanoi, Vietnam</span>
+</footer>
+
 <script>
-    AOS.init();
-
-    var typed = new Typed("#typing", {
-        strings: ["E-commerce Operations", "Digital Marketing", "Business Analysis"],
-        typeSpeed: 50,
-        backSpeed: 30,
-        loop: true
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
     });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
 </script>
-```
-
 </body>
 </html>
