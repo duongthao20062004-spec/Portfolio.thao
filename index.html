@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thao Portfolio</title>
     <link rel="stylesheet" href="style.css">
+
+```
+<!-- Animation -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+```
+
 </head>
 <body>
 
@@ -29,7 +35,7 @@
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" data-aos="fade-up">
     <h2>About Me</h2>
     <div class="about-container">
         <div class="about-text">
@@ -46,7 +52,7 @@
 </section>
 
 <!-- SKILLS -->
-<section id="skills">
+<section id="skills" data-aos="fade-up">
     <h2>Skills</h2>
     <div class="skills-container">
         <div class="skill-card">E-commerce</div>
@@ -57,25 +63,51 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section id="experience" data-aos="fade-up">
     <h2>Experience</h2>
-    <p>E-commerce Business Competition – E-Battlefield 2025</p>
-    <p>KOL/KOC Booking – Savor Vietnam</p>
-    <p>Product Management Intern – Synnex FPT</p>
+    <div class="project-card">
+        <h3>E-commerce Business Competition – E-Battlefield 2025</h3>
+        <p>Optimized product listing, SEO keywords, Amazon Ads campaign and achieved 42 orders in 21 days.</p>
+    </div>
+
+    <div class="project-card">
+        <h3>KOL/KOC Booking – Savor Vietnam</h3>
+        <p>Managed KOL/KOC campaigns and helped increase brand awareness by 30–40%.</p>
+    </div>
+
+    <div class="project-card">
+        <h3>Product Management Intern – Synnex FPT</h3>
+        <p>Conducted market research, managed product information and supported business reports.</p>
+    </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
+<section id="projects" data-aos="fade-up">
     <h2>Projects</h2>
-    <p>E-commerce Amazon Project</p>
-    <p>Portfolio Website</p>
+    <div class="projects-container">
+        <div class="project-card">
+            <h3>E-commerce Project</h3>
+            <p>Amazon product listing optimization and advertising campaign.</p>
+        </div>
+
+        <div class="project-card">
+            <h3>Portfolio Website</h3>
+            <p>Personal portfolio website using HTML and CSS.</p>
+        </div>
+    </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
+<section id="contact" data-aos="fade-up">
     <h2>Contact</h2>
     <p>Email: duongthao20062004@gmail.com</p>
+    <p>Phone: 0981 958 875</p>
 </section>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 ```
 
 </body>
