@@ -1,8 +1,8 @@
 body {
 margin: 0;
-font-family: Arial, sans-serif;
+font-family: 'Segoe UI', sans-serif;
 padding-top: 70px;
-background: #0f172a;
+background: #0a0a0a;
 color: white;
 }
 
@@ -15,36 +15,27 @@ scroll-behavior: smooth;
 display: flex;
 justify-content: space-between;
 align-items: center;
-padding: 15px 50px;
-background: #020617;
-color: white;
+padding: 15px 80px;
+background: black;
 position: fixed;
 width: 100%;
 top: 0;
 }
 
-.navbar ul {
-display: flex;
-list-style: none;
-}
-
-.navbar ul li {
-margin-left: 25px;
-}
-
 .navbar a {
 color: white;
 text-decoration: none;
+margin-left: 30px;
 }
 
 .navbar a:hover {
-color: #38bdf8;
+color: #00adb5;
 }
 
 /* Hero */
 .hero {
 height: 100vh;
-background: linear-gradient(to right, #0f172a, #1e293b);
+background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
 display: flex;
 justify-content: center;
 align-items: center;
@@ -52,16 +43,17 @@ flex-direction: column;
 }
 
 .hero h1 {
-font-size: 60px;
+font-size: 70px;
 }
 
 .hero p {
-font-size: 24px;
+font-size: 28px;
+color: #00adb5;
 }
 
-/* Sections */
+/* Section */
 section {
-padding: 80px;
+padding: 100px 80px;
 text-align: center;
 }
 
@@ -70,31 +62,33 @@ text-align: center;
 display: flex;
 justify-content: center;
 align-items: center;
-gap: 50px;
+gap: 60px;
 }
 
 .about-text {
-width: 400px;
+width: 500px;
+font-size: 18px;
 }
 
 .about-image img {
-width: 250px;
-border-radius: 10px;
+width: 280px;
+border-radius: 20px;
 }
 
 /* Skills */
 .skills-container {
 display: flex;
 justify-content: center;
-gap: 20px;
+gap: 25px;
 flex-wrap: wrap;
 }
 
 .skill-card {
-background: #1e293b;
-padding: 20px;
-border-radius: 10px;
-width: 150px;
+background: #1a1a1a;
+padding: 25px;
+border-radius: 15px;
+width: 180px;
+font-size: 18px;
 }
 
 /* Timeline */
@@ -104,10 +98,10 @@ margin: auto;
 }
 
 .timeline-item {
-background: #1e293b;
-padding: 20px;
-border-radius: 10px;
-margin: 20px 0;
+background: #1a1a1a;
+padding: 25px;
+border-radius: 15px;
+margin: 25px 0;
 }
 
 /* Projects */
@@ -119,13 +113,18 @@ flex-wrap: wrap;
 }
 
 .project-card {
-width: 250px;
-padding: 20px;
-background: #1e293b;
-border-radius: 10px;
+width: 280px;
+padding: 25px;
+background: #1a1a1a;
+border-radius: 15px;
 transition: 0.3s;
 }
 
 .project-card:hover {
 transform: translateY(-10px);
+}
+
+/* Contact */
+#contact p {
+font-size: 18px;
 }
