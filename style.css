@@ -4,6 +4,10 @@ font-family: Arial, sans-serif;
 padding-top: 70px;
 }
 
+html {
+scroll-behavior: smooth;
+}
+
 /* Navbar */
 .navbar {
 display: flex;
@@ -89,4 +93,24 @@ background: #eeeeee;
 padding: 20px;
 border-radius: 10px;
 width: 150px;
+}
+
+/* Projects */
+.projects-container {
+display: flex;
+justify-content: center;
+gap: 30px;
+}
+
+.project-card {
+width: 250px;
+padding: 20px;
+background: #eeeeee;
+border-radius: 10px;
+margin: 20px auto;
+transition: 0.3s;
+}
+
+.project-card:hover {
+transform: translateY(-10px);
 }
